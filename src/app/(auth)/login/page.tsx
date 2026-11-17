@@ -1,40 +1,26 @@
-import LoginForm from './_components/login-form';
+import LoginForm from '@/features/auth/components/login/login-form';
+import Link from 'next/link';
 
 export default function LoginPage() {
-  console.log('login page DATABASE PASSWORD', process.env.DATABASE_PASSWORD);
-  console.log('login page API URL', process.env.NEXT_PUBLIC_API_URL);
+
 
   return (
-    <main className="min-h-screen  flex items-center w-1/2 justify-center p-4 font-(family-name:--font-geist-sans)">
-      <div className="absolute " />
-      <div className="relative w-full max-w-[28rem]">
-        <div className="  ">
-          <div className="mb-12">
-            <h1 className="text-3xl font-bold tracking-tight">
-              Login
-            </h1>
-            
-          </div>
+   <main className="h-full flex flex-col justify-center items-center ">
 
-          {/* <Suspense> */}
-          <LoginForm />
-          {/* </Suspense> */}
-          {/* <LoginFormSSR /> */}
-          {/* <LoginForm>
-            <LoginFormSSR />
-          </LoginForm> */}
+    <div className='w-full max-w-113 flex flex-col gap-10 '>
 
-          <p className="mt-6 text-center text-sm text-zinc-500">
-            Don&apos;t have an account?{' '}
-            <a
-              href="#"
-              className="font-medium text-amber-400/90 hover:text-amber-400 transition"
-            >
-              Sign up
-            </a>
-          </p>
-        </div>
-      </div>
-    </main>
+    {/* title */}
+    <h1 className="font-inter text-3xl font-bold text-gray-800">Login</h1>
+
+    {/* form */}
+    <LoginForm />
+  
+
+    {/* Support text */}
+    <p className="text-sm text-center text-gray-500 font-medium mt-4 font-mono">Dont have an account? <Link href="/register" className="text-blue-600 hover:underline"> Create yours </Link></p>
+    </div>
+    
+
+   </main>
   )
 }

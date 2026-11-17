@@ -1,10 +1,14 @@
 import { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { ILoginResponse } from "./lib/types/auth.d";
+import { ILoginResponse } from "./features/auth/types/auth";
+import { login } from "./features/auth/api/auth.server";
+import { LoginScheme } from "./features/auth/schemas/login.schemes";
 
 export const authOptions: NextAuthOptions = {
   pages: {
     signIn: '/login',
+    error: '/login',
+    
   },
   providers: [
     Credentials({
@@ -14,51 +18,39 @@ export const authOptions: NextAuthOptions = {
         password: {},
       },
       authorize: async (credentials) => {
-        /*
-          Return <false>: Login failed
-          Throw <error>: Login failed
-          Return <{ id, ...user? }>: Login successful
-        */
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
-          method: 'POST',
-          body: JSON.stringify({ username: credentials?.username, password: credentials?.password }),
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        })
+        const result = LoginScheme.safeParse({username: credentials?.username, password: credentials?.password});
 
-        const data: IApiResponse<ILoginResponse> = await response.json();
-
-        if (!data.status) {
-          throw new Error(data.message)
+        if (!result.success) {
+          throw new Error("Invalid username or password");
         }
+      
+        const data = await login(result.data);
+
+        if(!data.status) throw new Error(data.message)
 
         const loginData = data.payload!;
 
-        return {
-          id: loginData.user.id,
-          token: loginData.token,
-          user: loginData.user
+          return {
+        id : loginData.user.id,
+        user : loginData.user,
+        token : loginData.token
         }
       }
     })
   ],
   callbacks: {
-    jwt: ({ token, user, trigger, session }) => {
+    jwt: ({ token, user }) => {
       if (user) {
         token.user = user.user;
         token.token = user.token;
       }
-
-      if (trigger === 'update' && session) {
-        token.user = session.user;
-        token.token = session.accessToken;
-      }
+      
 
       return token;
     },
     session: ({ session, token }) => {
+
       session.user = token.user;
 
       return session;
@@ -66,3 +58,57 @@ export const authOptions: NextAuthOptions = {
   },
   // secret: process.env.NEXTAUTH_SECRET
 }
+
+
+// export const authOptionsforgot: NextAuthOptions = {
+//   pages: {
+//     signIn: '/forgot-password',
+//     error: '/forgot-password',
+    
+//   },
+//   providers: [
+//     Credentials({
+//       name: 'Credentials',
+//       credentials: {
+//         email: {},
+//       },
+//       authorize: async (credentials) => {
+
+//         const result = ForgotPasswordScheme.safeParse({email: credentials?.email,});
+
+//         if (!result.success) {
+//           throw new Error("Invalid email");
+//         }
+      
+//         const data = await forgetPassword(result.data);
+
+//         if(!data?.status) throw new Error(data?.message)
+
+//         const forgotPasswordData = data.payload!;
+
+//           return {
+//         id : forgotPasswordData.user.id,
+//         user : forgotPasswordData.user,
+//         token : forgotPasswordData.token
+//         }
+//       }
+//     })
+//   ],
+//   callbacks: {
+//     jwt: ({ token, user }) => {
+//       if (user) {
+//         token.user = user.user;
+//         token.token = user.token;
+//       }
+      
+
+//       return token;
+//     },
+//     session: ({ session, token }) => {
+//       session.user = token.user;
+
+//       return session;
+//     },
+//   },
+//   // secret: process.env.NEXTAUTH_SECRET
+// }

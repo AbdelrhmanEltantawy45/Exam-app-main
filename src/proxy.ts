@@ -2,12 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 
 const privateRoutes = new Set([
-  '/',
-  '/profile',
+   '/profile',
 ]);
 const authRoutes = new Set([
-  '/login',
-  '/register',
+  '/registers',
+  
 ]);
 
 export default async function proxy(request: NextRequest) {
@@ -29,8 +28,7 @@ export default async function proxy(request: NextRequest) {
 
   if (authRoutes.has(pathname)) {
     if (!jwt) return NextResponse.next();
-
-    const redirectUrl = new URL('/', request.nextUrl.origin);
+     const redirectUrl = new URL('/', request.nextUrl.origin);
     return NextResponse.redirect(redirectUrl)
   }
 
