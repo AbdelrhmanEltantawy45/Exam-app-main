@@ -1,6 +1,5 @@
 "use client"
 import { CreateAccountScheme } from '@/features/auth/schemas/create-account.schemes';
-import UseCreateAccount from '@/features/auth/hooks/use-create-account';
 import { CreateAccountFields } from '@/features/auth/types/auth';
 import { Field, FieldError, FieldGroup, FieldLabel } from '@/shared/components/ui/field'
 import { Input } from '@/shared/components/ui/input'
@@ -8,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import React from 'react'
 import { Controller, FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import CreateAccountButton from './create-account-button';
+import UseCreateAccount from '@/features/auth/hooks/register/use-create-account';
 
 export default function CreatAccountform() {
 

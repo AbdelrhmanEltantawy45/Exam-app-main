@@ -1,4 +1,4 @@
-import useLogin from '@/features/auth/hooks/use-login';
+import useLogin from '@/features/auth/hooks/login/use-login';
 import { LoginFields } from '@/features/auth/types/auth';
 import { Button } from '@/shared/components/ui/button'
 import { ChevronRight } from 'lucide-react';

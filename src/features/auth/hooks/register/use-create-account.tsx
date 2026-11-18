@@ -1,8 +1,8 @@
 import React from "react";
-import { CreateAccountFields } from "../types/auth";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { createAccount } from "../api/auth.client";
+import { CreateAccountFields } from "../../types/auth";
+import { createAccount } from "../../api/auth.client";
 
 export default function UseCreateAccount() {
   const router = useRouter();
