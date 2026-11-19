@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import { LoginFields } from "../types/auth";
 import { signIn } from "next-auth/react";
+import { LoginFields } from "../../types/auth";
 
 export default function useLogin() {
   return useMutation({

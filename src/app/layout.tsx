@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import {  Geist_Mono, Inter, Geist } from "next/font/google";
+import { Geist_Mono, Inter, Geist } from "next/font/google";
 import "./globals.css";
 import Providers from "@/shared/components/context/global/providers";
 import { cn } from "@/shared/lib/utils/tailwind-cn";
 
-const inter = Inter({subsets:['latin'],variable:'--font-inter'});
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -22,15 +22,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("h-full", "antialiased", geistMono.className, geistMono.variable, inter.variable)}>
-      <body
-        className={""}
-      >
-        <Providers>
-          {children}
-        </Providers>
+    <html
+      lang="en"
+      className={cn(
+        "h-full",
+        "antialiased",
+        geistMono.className,
+        geistMono.variable,
+        inter.variable,
+      )}
+    >
+      <body className={""}>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
 }
-

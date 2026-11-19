@@ -49,7 +49,7 @@ export const createPassword = async (fields : CreatePasswordFields & {token : st
 }
 
 
-export const createAccount = async (fields: CreateAccountFields) => {
+export const sendEmailVerification = async (fields: CreateAccountFields) => {
     const response = await fetch(
         `${process.env.NEXT_PUBLIC_API}/auth/send-email-verification`,
         {

@@ -20,7 +20,7 @@ import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import LoginButton from "./login-button";
 import { Eye, EyeOff } from "lucide-react";
-import usePasswordToggle from "./hooks/use-password-toggle";
+import usePasswordToggle from "../../hooks/login/use-password-toggle";
 import { Button } from "@/shared/components/ui/button";
 import useLogin from "@/features/auth/hooks/login/use-login";
 
@@ -49,7 +49,7 @@ export default function LoginForm() {
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         {/* User Name */}
-        <FieldGroup className="relative">
+        <FieldGroup className="relative">  
           <Controller
             name="username"
             control={form.control}

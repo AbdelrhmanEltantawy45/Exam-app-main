@@ -1,5 +1,5 @@
 "use client";
-import InputOtp from "@/features/auth/components/register/create-account/input-otp";
+import InputOtp from "@/features/auth/components/register/input-otp";
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";

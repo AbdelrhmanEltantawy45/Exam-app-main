@@ -16,9 +16,8 @@ export default function UseVerifyEmail() {
 
     onSuccess: (_,fields) => {
        if(fields){
-        const callbackUrl =
-        new URLSearchParams(location.search).get("callbackUrl") ||
-        `/register?step=user-info`;
+        const raw = new URLSearchParams(location.search).get("callbackUrl");
+const callbackUrl = raw && raw.startsWith("/") && !raw.startsWith("//") ? raw : "/register?step=user-info";
 
       router.push(callbackUrl);
 

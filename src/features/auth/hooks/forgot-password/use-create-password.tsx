@@ -15,9 +15,8 @@ export default function UseCreatePassword() {
     },
 
     onSuccess: () => {
-      const callbackUrl =
-        new URLSearchParams(location.search).get("callbackUrl") ||
-        `/login`;
+      const raw = new URLSearchParams(location.search).get("callbackUrl");
+const callbackUrl = raw && raw.startsWith("/") && !raw.startsWith("//") ? raw : "/login";
 
       router.push(callbackUrl);
   }});

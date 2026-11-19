@@ -4,11 +4,11 @@ import { Field, FieldError, FieldGroup, FieldLabel } from "@/shared/components/u
 import { Input } from "@/shared/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
 import { Controller, FormProvider, SubmitHandler, useForm } from "react-hook-form"
-import usePasswordToggle from "../login/hooks/use-password-toggle";
+import usePasswordToggle from "../../hooks/login/use-password-toggle";
 import UseCreatePassword from "@/features/auth/hooks/forgot-password/use-create-password";
 import CreatePasswordButton from "./create-password-button";
 import { useSearchParams } from "next/navigation";
-import useConfirmPasswordToggle from "../register/create-account/hooks/use-password-toggle";
+import useConfirmPasswordToggle from "../../hooks/register/use-password-toggle";
 
 
 export default function CreatePasswordForm() {
