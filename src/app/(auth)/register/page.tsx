@@ -6,8 +6,14 @@ import { notFound, useSearchParams } from "next/navigation";
 import CreatAccountform from "@/features/auth/components/register/create-account-form";
 import InputOtp from "@/features/auth/components/register/input-otp";
 import ProgressIndicator from "@/shared/components/global/progress-indicator";
+import UserInfoForm from "@/features/auth/components/register/user-info";
 
-const STEPS = ["create-account", "verify-otp", "user-info", "password"] as const;
+const STEPS = [
+  "create-account",
+  "verify-otp",
+  "user-info",
+  "password",
+] as const;
 type Step = (typeof STEPS)[number];
 
 const isValidStep = (value: string): value is Step =>
@@ -18,13 +24,13 @@ export default function page() {
   const email = searchParams.get("email");
   const step = searchParams.get("step") ?? "create-account";
 
-  // 1) step غير موجودة في الـ whitelist → 404
+
   if (!isValidStep(step)) notFound();
 
-  // 2) verify-otp من غير email → 404
-  if (step === "verify-otp" && !email) notFound();
 
-  // رقم الخطوة من موقعها في المصفوفة (1-based) بدل الـ ternary
+  if (step === "verify-otp" && !email) notFound();
+  
+
   const currentStepNumber = STEPS.indexOf(step) + 1;
 
   return (
@@ -66,8 +72,9 @@ export default function page() {
             <InputOtp />
           </div>
         )}
+
+        {step === "user-info" && <UserInfoForm />}
       </div>
     </main>
   );
 }
-

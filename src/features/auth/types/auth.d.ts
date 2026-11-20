@@ -5,6 +5,7 @@ import { CreatePasswordScheme } from "../schemas/create-password.schemes";
 import { ForgotPasswordScheme } from "../schemas/forgot-password.schemes";
 import { LoginScheme } from "../schemas/login.schemes";
 import { RegisterScheme } from "../schemas/register.schemes";
+import { userInfoSchema } from "../schemas/user-info-schema";
 import { VerifyEmailScheme } from "../schemas/verify-email.schemes";
 import { IUser } from "./user";
 import { z } from "zod";
@@ -17,6 +18,7 @@ export type CreatePasswordFields = z.infer<typeof CreatePasswordScheme> & { toke
 export type CreateAccountFields = z.infer<typeof CreateAccountScheme>
 export type VerifyEmailFields = z.infer<typeof VerifyEmailScheme>
 export type ConfirmEmailVerificationFields = z.infer<typeof ConfirmEmailVerificationScheme>
+export type UserInfoFields = z.infer<typeof userInfoSchema>
 
 
 export interface ILoginResponse {
